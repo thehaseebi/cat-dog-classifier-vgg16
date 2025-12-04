@@ -37,7 +37,7 @@ The workflow includes dataset loading, preprocessing, model construction, traini
 ## Dataset Structure
 
 The dataset should follow this directory format:
-`dataset/
+dataset/
 │
 ├── training_set/
 │ ├── cats/
@@ -45,7 +45,7 @@ The dataset should follow this directory format:
 │
 └── test_set/
 ├── cats/
-└── dogs/`
+└── dogs/
 
 Each subfolder contains images corresponding to each class.
 
@@ -95,3 +95,4 @@ history = model.fit(
 📎 Summary
 
 This project highlights how transfer learning with VGG16 can be used to efficiently train a high-performing binary image classifier with minimal data and compute resources.
+
