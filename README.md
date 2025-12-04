@@ -40,12 +40,13 @@ The dataset should follow this directory format:
 dataset/
 │
 ├── training_set/
-│ ├── cats/
-│ └── dogs/
+│   ├── cats/
+│   └── dogs/
 │
 └── test_set/
-├── cats/
-└── dogs/
+    ├── cats/
+    └── dogs/
+
 
 Each subfolder contains images corresponding to each class.
 
@@ -95,4 +96,5 @@ history = model.fit(
 📎 Summary
 
 This project highlights how transfer learning with VGG16 can be used to efficiently train a high-performing binary image classifier with minimal data and compute resources.
+
 
