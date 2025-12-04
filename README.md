@@ -1,69 +1,68 @@
-🐱🐶 Cat vs Dog Image Classifier using Transfer Learning (VGG16)
+# Cat vs Dog Image Classifier (Transfer Learning with VGG16)
 
-This project implements a Cat vs Dog Image Classifier using Transfer Learning with the VGG16 convolutional neural network pre-trained on ImageNet.
-By leveraging VGG16 as a feature extractor and fine-tuning custom layers, the model achieves efficient and accurate binary image classification.
+A binary image classification project using **Transfer Learning** with the **VGG16** convolutional neural network pre-trained on **ImageNet**. The model leverages VGG16 as a fixed feature extractor and trains custom dense layers to classify images as **cat** or **dog** with high accuracy.
 
-📘 Project Overview
+---
 
-This notebook demonstrates how to use VGG16 for transfer learning on a custom dataset of cat and dog images.
-The pre-trained VGG16 convolutional base is used to extract meaningful features from images, while new dense layers are trained for classification.
+## Project Overview
 
-Key Objectives:
+This project demonstrates how to apply **transfer learning** using the VGG16 architecture for a custom image classification task.  
+The workflow includes dataset loading, preprocessing, model construction, training, evaluation, and model saving.
 
-Apply Transfer Learning with VGG16.
+**Key Objectives:**
+- Utilize **VGG16** as a feature extractor  
+- Train a binary classifier (cats vs dogs)  
+- Apply Keras data generators for image loading and preprocessing  
+- Evaluate model performance on a separate validation/test set  
 
-Train a classifier to distinguish between cats and dogs.
+---
 
-Utilize Keras image generators for dataset loading and preprocessing.
+## Model Architecture
 
-Evaluate model performance on a separate test set.
+**Base Model:**  
+- `VGG16(include_top=False, weights='imagenet')`  
+- All convolutional layers **frozen**
 
-🧠 Model Architecture
+**Added Classification Layers:**  
+- `Flatten()`  
+- `Dense(256, activation='relu')`  
+- `Dense(1, activation='sigmoid')`
 
-Base Model: VGG16 (pre-trained on ImageNet, include_top=False)
+**Training Strategy:**  
+- Only custom dense layers are trainable  
+- VGG16 base remains frozen to retain learned ImageNet features  
 
-Added Layers:
+---
 
-Flatten()
+## Dataset Structure
 
-Dense(256, activation='relu')
-
-Dense(1, activation='sigmoid')
-
-Training Strategy:
-
-The VGG16 base is frozen (not trainable).
-
-Only the new dense layers are trained.
-
-🗂️ Dataset
-
-The dataset is expected to be organized in a directory structure like:
-
-dataset/
+The dataset should follow this directory format:
+`dataset/
 │
 ├── training_set/
-│   ├── cats/
-│   └── dogs/
+│ ├── cats/
+│ └── dogs/
 │
 └── test_set/
-    ├── cats/
-    └── dogs/
+├── cats/
+└── dogs/`
 
+Each subfolder contains images corresponding to each class.
 
-Each subfolder should contain the respective class images.
+---
 
-⚙️ Data Preprocessing
+## Data Preprocessing
 
-Images are:
+- Loaded using `keras.utils.image_dataset_from_directory()`  
+- Resized to **150×150**  
+- Normalized to **[0, 1]**  
+- Batched and shuffled automatically  
 
-Loaded using keras.utils.image_dataset_from_directory()
+---
 
-Resized to 150×150 pixels
+## Training
 
-Normalized to a range of [0, 1]
-
-🚀 Training
+python
 model.compile(
     optimizer='adam',
     loss='binary_crossentropy',
@@ -76,24 +75,23 @@ history = model.fit(
     epochs=10
 )
 
+## Training uses:
+- Adam optimizer
 
-Uses binary cross-entropy loss.
+- Binary cross-entropy loss
 
-Tracks accuracy on training and validation sets.
+- Accuracy as the primary metric
 
-📊 Evaluation
+## Evaluate model performance:
+- model.evaluate(validation_ds)
 
-After training, model performance can be evaluated using:
+## Generate predictions:
+- model.predict(image_batch)
 
-model.evaluate(validation_ds)
+## Save the trained model:
+- model.save('vgg16_cat_dog_classifier.h5')
 
 
-and predictions can be made on unseen data with:
+📎 Summary
 
-model.predict(image_batch)
-
-💾 Saving the Model
-
-You can save the trained model using:
-
-model.save('vgg16_cat_dog_classifier.h5')
+This project highlights how transfer learning with VGG16 can be used to efficiently train a high-performing binary image classifier with minimal data and compute resources.
